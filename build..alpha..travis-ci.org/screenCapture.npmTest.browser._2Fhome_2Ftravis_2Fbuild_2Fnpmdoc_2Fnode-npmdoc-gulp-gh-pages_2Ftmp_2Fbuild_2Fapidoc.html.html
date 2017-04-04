@@ -1,0 +1,621 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/shinnn/gulp-gh-pages#readme">gulp-gh-pages (v0.5.4)</a>
+</h1>
+<h4>gulp plugin to publish contents to Github pages</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-gh-pages">module gulp-gh-pages</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.</span>git
+            <span class="apidocSignatureSpan">(repo, initialBranch)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">gulp-gh-pages.</span>git.prototype</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-gh-pages.git">module gulp-gh-pages.git</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.git">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.</span>git
+            <span class="apidocSignatureSpan">(repo, initialBranch)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.getRemoteUrl">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.git.</span>getRemoteUrl
+            <span class="apidocSignatureSpan">(repo, remote)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.prepareRepo">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.git.</span>prepareRepo
+            <span class="apidocSignatureSpan">(remoteUrl, origin, dir)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-gh-pages.git.prototype">module gulp-gh-pages.git.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.prototype.addFiles">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>addFiles
+            <span class="apidocSignatureSpan">(files, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.prototype.checkoutBranch">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>checkoutBranch
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.prototype.commit">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>commit
+            <span class="apidocSignatureSpan">(commitMsg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.prototype.createAndCheckoutBranch">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>createAndCheckoutBranch
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.prototype.createBranch">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>createBranch
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git.prototype.status">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>status
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-gh-pages" id="apidoc.module.gulp-gh-pages">module gulp-gh-pages</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git" id="apidoc.element.gulp-gh-pages.git">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.</span>git
+        <span class="apidocSignatureSpan">(repo, initialBranch)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Git(repo, initialBranch) {
+  this._repo = repo;
+  this._staged = [];
+  this._localBranches = [];
+  this._remoteBranches = [];
+  this._currentBranch = initialBranch;
+  this._commits = [];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  if (newBranchCreated) {
+    resolve(repo);
+    return;
+  }
+
+  // updating to avoid having local cache not up to date
+  gutil.log(TAG, 'Updating repository');
+  repo._repo.<span class="apidocCodeKeywordSpan">git</span>('pull', function(err) {
+    if (err) {
+      reject(err);
+      return;
+    }
+    resolve(repo);
+  });
+});
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-gh-pages.git" id="apidoc.module.gulp-gh-pages.git">module gulp-gh-pages.git</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.git" id="apidoc.element.gulp-gh-pages.git.git">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.</span>git
+        <span class="apidocSignatureSpan">(repo, initialBranch)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Git(repo, initialBranch) {
+  this._repo = repo;
+  this._staged = [];
+  this._localBranches = [];
+  this._remoteBranches = [];
+  this._currentBranch = initialBranch;
+  this._commits = [];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  if (newBranchCreated) {
+    resolve(repo);
+    return;
+  }
+
+  // updating to avoid having local cache not up to date
+  gutil.log(TAG, 'Updating repository');
+  repo._repo.<span class="apidocCodeKeywordSpan">git</span>('pull', function(err) {
+    if (err) {
+      reject(err);
+      return;
+    }
+    resolve(repo);
+  });
+});
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.getRemoteUrl" id="apidoc.element.gulp-gh-pages.git.getRemoteUrl">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.git.</span>getRemoteUrl
+        <span class="apidocSignatureSpan">(repo, remote)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getRemoteUrl(repo, remote) {
+  return wrapPromise(function(resolve, reject) {
+    repo.config(function(err, config) {
+      if (err) {
+        reject(new Error('Failed to find git repository in ' + config.path));
+        return;
+      }
+      resolve(config.items['remote.' + remote + '.url']);
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.prepareRepo" id="apidoc.element.gulp-gh-pages.git.prepareRepo">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.git.</span>prepareRepo
+        <span class="apidocSignatureSpan">(remoteUrl, origin, dir)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function prepareRepo(remoteUrl, origin, dir) {
+  var promise;
+  if (remoteUrl) {
+    // if a remoteUrl was provided, use it
+    promise = wrapPromise.Promise.resolve(remoteUrl);
+  } else {
+    // else try to extract it from the .git folder of
+    // the current directory.
+    promise = getRemoteUrl(git(process.cwd()), origin);
+  }
+
+  return promise.then(function(rUrl) {
+    remoteUrl = rUrl;
+
+    return wrapPromise(function(resolve, reject) {
+      function initRepo(repo) {
+        repo.branch(function(err, head) {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(new Git(repo, head.name).status());
+        });
+      }
+
+      function clearAndInitRepo() {
+        rimraf(dir, function(rmErr) {
+          if (rmErr) {
+            reject(rmErr);
+            return;
+          }
+
+          git.clone(rUrl, dir, function(cloneErr, repo) {
+            if (cloneErr) {
+              reject(cloneErr);
+              return;
+            }
+            initRepo(repo);
+          });
+        });
+      }
+
+      // assume that if there is a .git folder get its remoteUrl
+      // and check if it mathces the one we want to use.
+      getRemoteUrl(git(dir), origin).then(function(cwdRemoteUrl) {
+        if (remoteUrl === cwdRemoteUrl) {
+          initRepo(git(dir));
+          return;
+        }
+        clearAndInitRepo();
+      }, function() {
+        clearAndInitRepo();
+      });
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  gutil.log(TAG, 'No files in the stream.');
+  cb();
+  return;
+}
+
+var newBranchCreated = false;
+
+git.<span class="apidocCodeKeywordSpan">prepareRepo</span>(options.remoteUrl, origin, options.cacheDir || '.publish')
+.then(function(repo) {
+  gutil.log(TAG, 'Cloning repo');
+  if (repo._localBranches.indexOf(branch) &gt; -1) {
+    gutil.log(TAG, 'Checkout branch `' + branch + '`');
+    return repo.checkoutBranch(branch);
+  }
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-gh-pages.git.prototype" id="apidoc.module.gulp-gh-pages.git.prototype">module gulp-gh-pages.git.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.prototype.addFiles" id="apidoc.element.gulp-gh-pages.git.prototype.addFiles">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>addFiles
+        <span class="apidocSignatureSpan">(files, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">addFiles = function (files, options) {
+  var self = this;
+
+  return wrapPromise(function(resolve, reject) {
+    self._repo.add(files, options, function(err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      resolve(self.status());
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      destStream.write(file);
+    });
+
+    destStream.end();
+  });
+})
+.then(function(repo) {
+  return repo.<span class="apidocCodeKeywordSpan">addFiles</span>('.', {force: options.force || false});
+})
+.then(function(repo) {
+  var filesToBeCommitted = Object.keys(repo._staged).length;
+  if (filesToBeCommitted === 0) {
+    gutil.log(TAG, 'No files have changed.');
+    cb();
+    return;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.prototype.checkoutBranch" id="apidoc.element.gulp-gh-pages.git.prototype.checkoutBranch">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>checkoutBranch
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">checkoutBranch = function (name) {
+  var self = this;
+
+  return wrapPromise(function(resolve, reject) {
+    self._repo.checkout(name, function(err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      self._currentBranch = name;
+      resolve(self.status());
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      var newBranchCreated = false;
+
+      git.prepareRepo(options.remoteUrl, origin, options.cacheDir || '.publish')
+      .then(function(repo) {
+gutil.log(TAG, 'Cloning repo');
+if (repo._localBranches.indexOf(branch) &gt; -1) {
+  gutil.log(TAG, 'Checkout branch `' + branch + '`');
+  return repo.<span class="apidocCodeKeywordSpan">checkoutBranch</span>(branch);
+}
+
+if (repo._remoteBranches.indexOf(origin + '/' + branch) &gt; -1) {
+  gutil.log(TAG, 'Checkout remote branch `' + branch + '`');
+  return repo.checkoutBranch(branch);
+}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.prototype.commit" id="apidoc.element.gulp-gh-pages.git.prototype.commit">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>commit
+        <span class="apidocSignatureSpan">(commitMsg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">commit = function (commitMsg) {
+  var self = this;
+
+  return wrapPromise(function(resolve, reject) {
+    self._repo.commit(commitMsg, {all: true}, function(err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(self.status());
+      }
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  gutil.log(TAG, 'No files have changed.');
+  cb();
+  return;
+}
+
+gutil.log(TAG, 'Adding ' + filesToBeCommitted + ' files.');
+gutil.log(TAG, 'Committing "' + message + '"');
+repo.<span class="apidocCodeKeywordSpan">commit</span>(message).then(function(newRepo) {
+  if (options.push === undefined || options.push) {
+    gutil.log(TAG, 'Pushing to remote.');
+    newRepo._repo.git('push', {
+      'set-upstream': true
+    }, [origin, newRepo._currentBranch], function(err) {
+      if (err) {
+        cb(err);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.prototype.createAndCheckoutBranch" id="apidoc.element.gulp-gh-pages.git.prototype.createAndCheckoutBranch">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>createAndCheckoutBranch
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">createAndCheckoutBranch = function (name) {
+  return this.createBranch(name)
+  .then(function(repo) {
+    return repo.checkoutBranch(name);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  if (repo._remoteBranches.indexOf(origin + '/' + branch) &gt; -1) {
+    gutil.log(TAG, 'Checkout remote branch `' + branch + '`');
+    return repo.checkoutBranch(branch);
+  }
+
+  gutil.log(TAG, 'Create branch `' + branch + '` and checkout');
+  newBranchCreated = true;
+  return repo.<span class="apidocCodeKeywordSpan">createAndCheckoutBranch</span>(branch);
+})
+.then(function(repo) {
+  return wrapPromise(function(resolve, reject) {
+    if (newBranchCreated) {
+      resolve(repo);
+      return;
+    }
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.prototype.createBranch" id="apidoc.element.gulp-gh-pages.git.prototype.createBranch">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>createBranch
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">createBranch = function (name) {
+  var self = this;
+
+  return wrapPromise(function(resolve, reject) {
+    self._repo.create_branch(name, function(err) {
+      if (err) {
+        reject(err);
+      } else {
+        self._currentBranch = name;
+        resolve(self.status());
+      }
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+/*
+ * Create and checkout a branch
+ * @param name {String} -  String name of the new branch.
+**/
+Git.prototype.createAndCheckoutBranch = function(name) {
+return this.<span class="apidocCodeKeywordSpan">createBranch</span>(name)
+.then(function(repo) {
+  return repo.checkoutBranch(name);
+});
+};
+
+Git.prototype.addFiles = function(files, options) {
+var self = this;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.git.prototype.status" id="apidoc.element.gulp-gh-pages.git.prototype.status">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.git.prototype.</span>status
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">status = function () {
+  var self = this;
+
+  return wrapPromise(function(resolve, reject) {
+    self._repo.status(function(err, repo) {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      self._repo = repo.repo;
+      self._staged = repo.files;
+      wrapPromise.Promise.all([
+        getCommits(self._repo, self._currentBranch),
+        listRemoteBranches(self._repo),
+        listLocalBranches(self._repo)
+      ])
+      .then(function(args) {
+        self._remoteBranches = args[1];
+        self._localBranches = args[2];
+        self._commits = args[0];
+        resolve(self);
+      }, reject);
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// remove all files
+return wrapPromise(function(resolve, reject) {
+  repo._repo.remove('.', {r: true}, function(err) {
+    if (err) {
+      reject(err);
+      return;
+    }
+    resolve(repo.<span class="apidocCodeKeywordSpan">status</span>());
+  });
+});
+      })
+      .then(function(repo) {
+gutil.log(TAG, 'Copying files to repository');
+
+return wrapPromise(function(resolve, reject) {
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
