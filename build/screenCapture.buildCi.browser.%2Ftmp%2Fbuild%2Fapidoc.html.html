@@ -56,9 +56,27 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.gulp-gh-pages">
+            function <span class="apidocSignatureSpan"></span>gulp-gh-pages
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.git">
             function <span class="apidocSignatureSpan">gulp-gh-pages.</span>git
             <span class="apidocSignatureSpan">(repo, initialBranch)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.toString">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.</span>toString
+            <span class="apidocSignatureSpan">()</span>
             </a>
 
         </li>
@@ -160,10 +178,177 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-gh-pages.toString">module gulp-gh-pages.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-gh-pages.toString.toString">
+            function <span class="apidocSignatureSpan">gulp-gh-pages.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.gulp-gh-pages" id="apidoc.module.gulp-gh-pages">module gulp-gh-pages</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.gulp-gh-pages" id="apidoc.element.gulp-gh-pages.gulp-gh-pages">
+        function <span class="apidocSignatureSpan"></span>gulp-gh-pages
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function gulpGhPages(options) {
+  options = options || {};
+  var origin = options.origin || 'origin';
+  var branch = options.branch || 'gh-pages';
+  var message = options.message || 'Update ' + new Date().toISOString();
+
+  var files = [];
+  var TAG;
+  if (branch !== 'gh-pages') {
+    TAG = '[gh-pages (' + branch + ')]';
+  } else {
+    TAG = '[gh-pages]';
+  }
+
+  return new Transform({
+    objectMode: true,
+    transform: function collectFiles(file, enc, cb) {
+      if (file.isNull()) {
+        cb(null, file);
+        return;
+      }
+
+      if (file.isStream()) {
+        cb(new gutil.PluginError('gulp-gh-pages', 'Stream content is not supported'));
+        return;
+      }
+
+      files.push(file);
+      cb(null, file);
+    },
+    flush: function publish(cb) {
+      if (files.length === 0) {
+        gutil.log(TAG, 'No files in the stream.');
+        cb();
+        return;
+      }
+
+      var newBranchCreated = false;
+
+      git.prepareRepo(options.remoteUrl, origin, options.cacheDir || '.publish')
+      .then(function(repo) {
+        gutil.log(TAG, 'Cloning repo');
+        if (repo._localBranches.indexOf(branch) &gt; -1) {
+          gutil.log(TAG, 'Checkout branch `' + branch + '`');
+          return repo.checkoutBranch(branch);
+        }
+
+        if (repo._remoteBranches.indexOf(origin + '/' + branch) &gt; -1) {
+          gutil.log(TAG, 'Checkout remote branch `' + branch + '`');
+          return repo.checkoutBranch(branch);
+        }
+
+        gutil.log(TAG, 'Create branch `' + branch + '` and checkout');
+        newBranchCreated = true;
+        return repo.createAndCheckoutBranch(branch);
+      })
+      .then(function(repo) {
+        return wrapPromise(function(resolve, reject) {
+          if (newBranchCreated) {
+            resolve(repo);
+            return;
+          }
+
+          // updating to avoid having local cache not up to date
+          gutil.log(TAG, 'Updating repository');
+          repo._repo.git('pull', function(err) {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve(repo);
+          });
+        });
+      })
+      .then(function(repo) {
+        // remove all files
+        return wrapPromise(function(resolve, reject) {
+          repo._repo.remove('.', {r: true}, function(err) {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve(repo.status());
+          });
+        });
+      })
+      .then(function(repo) {
+        gutil.log(TAG, 'Copying files to repository');
+
+        return wrapPromise(function(resolve, reject) {
+          var destStream = vinylFs.dest(repo._repo.path)
+          .on('error', reject)
+          .on('end', function() {
+            resolve(repo);
+          })
+          .resume();
+
+          files.forEach(function(file) {
+            destStream.write(file);
+          });
+
+          destStream.end();
+        });
+      })
+      .then(function(repo) {
+        return repo.addFiles('.', {force: options.force || false});
+      })
+      .then(function(repo) {
+        var filesToBeCommitted = Object.keys(repo._staged).length;
+        if (filesToBeCommitted === 0) {
+          gutil.log(TAG, 'No files have changed.');
+          cb();
+          return;
+        }
+
+        gutil.log(TAG, 'Adding ' + filesToBeCommitted + ' files.');
+        gutil.log(TAG, 'Committing "' + message + '"');
+        repo.commit(message).then(function(newRepo) {
+          if (options.push === undefined || options.push) {
+            gutil.log(TAG, 'Pushing to remote.');
+            newRepo._repo.git('push', {
+              'set-upstream': true
+            }, [origin, newRepo._currentBranch], function(err) {
+              if (err) {
+                cb(err);
+                return;
+              }
+              cb();
+            });
+            return;
+          }
+          cb();
+        }, cb);
+      })
+      .catch(function(err) {
+        setImmediate(function() {
+          cb(new gutil.PluginError('gulp-gh-pages', err));
+        });
+      });
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
@@ -198,6 +383,21 @@
   });
 });
 ...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.toString" id="apidoc.element.gulp-gh-pages.toString">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
@@ -607,6 +807,24 @@ gutil.log(TAG, 'Copying files to repository');
 
 return wrapPromise(function(resolve, reject) {
 ...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-gh-pages.toString" id="apidoc.module.gulp-gh-pages.toString">module gulp-gh-pages.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-gh-pages.toString.toString" id="apidoc.element.gulp-gh-pages.toString.toString">
+        function <span class="apidocSignatureSpan">gulp-gh-pages.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
