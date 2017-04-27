@@ -1,6 +1,6 @@
 # npmdoc-gulp-gh-pages
 
-#### api documentation for  [gulp-gh-pages (v0.5.4)](https://github.com/shinnn/gulp-gh-pages#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-gh-pages.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-gh-pages) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-gh-pages.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-gh-pages)
+#### basic api documentation for  [gulp-gh-pages (v0.5.4)](https://github.com/shinnn/gulp-gh-pages#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-gh-pages.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-gh-pages) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-gh-pages.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-gh-pages)
 
 #### gulp plugin to publish contents to Github pages
 
@@ -103,7 +103,8 @@
         "test": "mocha test.js --timeout 50000 --full-trace",
         "test-only": "mocha test.js --timeout 50000 --full-trace"
     },
-    "version": "0.5.4"
+    "version": "0.5.4",
+    "bin": {}
 }
 ```
 
